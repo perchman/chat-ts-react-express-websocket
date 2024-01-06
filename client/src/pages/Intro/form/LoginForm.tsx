@@ -1,6 +1,8 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, NavigateFunction, useNavigate} from "react-router-dom";
 import {Field, Form} from "react-final-form";
+
+import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
 import style from "./LoginForm.module.css";
 
@@ -32,13 +34,12 @@ export default function LoginForm() {
         setValues({...values, [name]: value});
     }
 
+    const navigate: NavigateFunction = useNavigate();
+
     const onSubmit = (data: UserData): void => {
-        console.log(data);
-    }
-    console.log(values);
+        ServiceLocator.set<WebSocket>('Socket', new WebSocket("ws://localhost:5200"));
 
-    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-
+        navigate(`/chat?username=${data.username}&color=${data.color}`);
     }
 
     return (
@@ -56,7 +57,7 @@ export default function LoginForm() {
                                     className={style['username-input']}
                                     component="input"
                                     type="text"
-                                    onChange={handleChange}
+                                    // onChange={handleChange}
                                     placeholder="Username"
                                 />
                             </div>
@@ -67,18 +68,20 @@ export default function LoginForm() {
                                         <input
                                             className={style['color-input']}
                                             type="color" {...input}
-                                            onChange={handleChange}
+                                            // onChange={handleChange}
                                         />
                                     )}
                                 />
                             </div>
                         </div>
-                        <Link
-                            to={`/chat?username=${values.username}&color=${values.color}`}
-                            className={style['btn-item']}
-                        >
-                                <button className={style.btn} type="submit">Join the chat</button>
-                        </Link>
+                        {/*<Link*/}
+                        {/*    to={`/chat?username=${values.username}&color=${values.color}`}*/}
+                        {/*    className={style['btn-item']}*/}
+                        {/*>*/}
+                        {/*        <button className={style.btn} type="submit">Join the chat</button>*/}
+                        {/*</Link>*/}
+
+                        <button className={style.btn} type="submit">Join the chat</button>
                     </form>
                 }}
             />

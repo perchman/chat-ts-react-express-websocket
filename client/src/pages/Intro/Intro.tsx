@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import LoginForm from "./form/LoginForm";
-
+import UserMessage from "../Chat/Messages/UserMessage/UserMessage";
 import style from "./Intro.module.css";
 
 export default function Intro() {
@@ -9,6 +9,7 @@ export default function Intro() {
         <div className={style.wrapper}>
             <h1 className={style.title}>Chat</h1>
             <LoginForm />
+            <UserMessage />
         </div>
     );
 }

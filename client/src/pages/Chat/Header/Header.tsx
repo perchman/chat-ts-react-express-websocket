@@ -5,10 +5,26 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 import style from "./Header.module.css";
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
-export default function Header() {
+interface User {
+    username: string,
+    color: string
+}
+
+export default function Header({ user }: {user: User}) {
 
     const handleClick = () => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
+
+        socket.send(
+            JSON.stringify(
+                {
+                    type: "join",
+                    date: new Date().getTime(),
+                    user: user
+                }
+            )
+        );
+
         socket.close();
         ServiceLocator.delete<WebSocket>('Socket');
     }

@@ -9,37 +9,40 @@ import Entry from "./Entry/Entry";
 
 import style from "./Chat.module.css";
 
-interface Params {
+interface User {
     username: string,
     color: string
 }
 
-// const socket: WebSocket = new WebSocket("ws://localhost:5200");
-
-// socket.onmessage = (message): void => {
-//
-// };
-
 export default function Chat() {
     const { search } : { search: string } = useLocation();
-    const [params, setParams] = useState<Params>();
-    console.log(ServiceLocator.get('Socket'));
+    const searchParams: URLSearchParams = new URLSearchParams(search);
+    const user: User = {
+        username: searchParams.get('username') || '',
+        color: searchParams.get('color') || ''
+    };
+
+
 
     useEffect(() => {
-        const searchParams: URLSearchParams = new URLSearchParams(search);
+        const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
 
-        // socket.onopen = (): void => {
-        //     console.log('Connect to server');
-        //
-        //     socket.send(JSON.stringify(params));
-        // }
+        socket.send(
+            JSON.stringify(
+                {
+                    type: "join",
+                    date: new Date().getTime(),
+                    user: user
+                }
+            )
+        );
     }, [search]);
 
     return (
         <div className={style.main}>
-            <Header/>
-            <Messages/>
-            <Entry/>
+            <Header user={user}/>
+            <Messages user={user}/>
+            <Entry user={user}/>
         </div>
     );
 }

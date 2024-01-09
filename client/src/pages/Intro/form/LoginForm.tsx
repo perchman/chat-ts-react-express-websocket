@@ -37,9 +37,16 @@ export default function LoginForm() {
     const navigate: NavigateFunction = useNavigate();
 
     const onSubmit = (data: UserData): void => {
-        ServiceLocator.set<WebSocket>('Socket', new WebSocket("ws://localhost:5200"));
+        const socket: WebSocket = new WebSocket("ws://localhost:5200");
 
-        navigate(`/chat?username=${data.username}&color=${data.color}`);
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+
+        socket.onopen = () => {
+            ServiceLocator.set<WebSocket>('Socket', socket);
+            navigate(`/chat?username=${data.username}&color=${data.color}`);
+        }
     }
 
     return (
@@ -74,14 +81,9 @@ export default function LoginForm() {
                                 />
                             </div>
                         </div>
-                        {/*<Link*/}
-                        {/*    to={`/chat?username=${values.username}&color=${values.color}`}*/}
-                        {/*    className={style['btn-item']}*/}
-                        {/*>*/}
-                        {/*        <button className={style.btn} type="submit">Join the chat</button>*/}
-                        {/*</Link>*/}
-
-                        <button className={style.btn} type="submit">Join the chat</button>
+                        <div className={style['btn-item']}>
+                            <button className={style.btn} type="submit">Join the chat</button>
+                        </div>
                     </form>
                 }}
             />

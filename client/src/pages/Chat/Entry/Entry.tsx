@@ -1,14 +1,36 @@
-import React, {useState} from "react";
-import {Field, Form} from "react-final-form";
+import React, {useRef} from "react";
+import {Form} from "react-final-form";
 import { BiSolidSend } from "react-icons/bi";
+
+import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
 import style from "./Entry.module.css";
 
-export default function Entry() {
-    const [message, setMessage] = useState<string | undefined>('');
+interface User {
+    username: string,
+    color: string
+}
 
-    const onSubmit = (text: string) => {
-        console.log(text);
+export default function Entry({ user }: {user: User}) {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const onSubmit = (data: {message: string}): void => {
+        const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
+        socket.send(
+            JSON.stringify(
+                {
+                    type: 'user',
+                    date: new Date().getTime(),
+                    user: user,
+                    text: data.message
+                }
+            )
+        );
+
+
+        if (textareaRef.current) {
+            textareaRef.current.value = '';
+        }
     }
 
     return (
@@ -18,12 +40,11 @@ export default function Entry() {
                 render={({handleSubmit}) => {
                     return <form id="entry-form" className={style.form} onSubmit={handleSubmit}>
                         <div>
-                            <Field
+                            <textarea
                                 name="message"
                                 className={style.message}
-                                component="textarea"
-                                type="text"
                                 placeholder="Enter your message..."
+                                ref={textareaRef}
                             />
                         </div>
                         <div className={style['entry-field']}>

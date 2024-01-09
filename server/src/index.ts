@@ -1,33 +1,44 @@
 import express from "express";
 import http from "http";
 import WebSocket from "ws";
-
+import MongoDB from "./frameworks/MongoDB";
+import ServiceLocator from "./frameworks/ServiceLocator";
 import cors from "./middlewares/cors";
-import router from "./route";
+
+const messages = require('./messages');
 
 const PORT = process.env.PORT || 5200;
 const app = express();
 
 app.use(cors);
-app.use(router);
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-async function start() {
+const defaultDB: MongoDB = new MongoDB('Default');
+
+async function start(): Promise<void> {
     try {
-        wss.on('connection', (ws) => {
+        await defaultDB.connect();
+        ServiceLocator.set('DefaultDB', defaultDB);
+
+        wss.on('connection', async (ws: WebSocket): Promise<void> => {
             console.log('Client connected');
+            // ws.binaryType = 'arraybuffer';
+            ws.send(JSON.stringify({ type:'history', messages: await messages.getMessages() }));
 
-            ws.on('message', (message) => {
-                console.log(message);
-            })
+            ws.on('message', async (message: string): Promise<void> => {
+                const data = JSON.parse(message);
+                console.log(data);
 
-            ws.on('close', () => {
+                await messages.saveMessage(data);
+            });
+
+            ws.on('close', (): void => {
                 console.log('Client disconnected');
             });
 
-            ws.on('error', (error) => {
+            ws.on('error', (error: Error): void => {
                 console.error('WebSocket error:', error);
             });
         });
@@ -39,3 +50,10 @@ async function start() {
 }
 
 start();
+
+
+// wss.clients.forEach((client: WebSocket): void => {
+//     if (client.readyState === WebSocket.OPEN) {
+//         client.send(JSON.stringify(message));
+//     }
+// });

@@ -1,31 +1,37 @@
 import React, {useEffect, useState} from "react";
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
+import UserMessage from "./UserMessage/UserMessage";
+import SystemMessage from "./SystemMessage/SystemMessage";
+
 interface User {
     username: string,
     color: string
 }
 
-interface SystemMessage {
+interface SystemMessageInterface {
     type: "join" | "left",
-    date: string,
+    date: number,
     user: User
 }
 
-interface UserMassage {
+interface UserMassageInterface {
     type: "user",
-    date: string,
+    date: number,
     user: User,
     text: string
 }
 
 interface Messages {
-    messages: SystemMessage[] | UserMassage[],
+    messages: SystemMessageInterface[] | UserMassageInterface[],
     user: User
 }
 
 export default function Messages({ user }: {user: User}) {
-    const [messages, setMessages] = useState<SystemMessage[] | UserMassage[]>([]);
+    const [
+        messages,
+        setMessages
+    ] = useState<SystemMessageInterface[] | UserMassageInterface[]>([]);
 
     useEffect((): void => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
@@ -42,10 +48,14 @@ export default function Messages({ user }: {user: User}) {
     }, [user]);
 
     return (
-        <div>{
-            messages.map((message, index) => {
-                return <div key={index}>message</div>
-            } )
-        }</div>
+        <div>
+            {
+                messages.map((message, index) => {
+                    return message.type === 'user' ?
+                        <UserMessage data={message} key={index}/> :
+                        <SystemMessage data={message} key={index}/>
+                })
+            }
+        </div>
     );
 }

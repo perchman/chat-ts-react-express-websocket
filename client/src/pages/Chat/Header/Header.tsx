@@ -18,7 +18,7 @@ export default function Header({ user }: {user: User}) {
         socket.send(
             JSON.stringify(
                 {
-                    type: "join",
+                    type: "left",
                     date: new Date().getTime(),
                     user: user
                 }

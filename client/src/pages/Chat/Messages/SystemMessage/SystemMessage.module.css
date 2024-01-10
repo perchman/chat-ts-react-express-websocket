@@ -1,0 +1,14 @@
+.back {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.message {
+    padding: 20px 18px;
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    position: relative;
+}

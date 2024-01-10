@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {Form} from "react-final-form";
+import {Field, Form} from "react-final-form";
 import { BiSolidSend } from "react-icons/bi";
 
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
@@ -16,6 +16,7 @@ export default function Entry({ user }: {user: User}) {
 
     const onSubmit = (data: {message: string}): void => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
+        console.log(data);
         socket.send(
             JSON.stringify(
                 {
@@ -40,12 +41,30 @@ export default function Entry({ user }: {user: User}) {
                 render={({handleSubmit}) => {
                     return <form id="entry-form" className={style.form} onSubmit={handleSubmit}>
                         <div>
-                            <textarea
+                            <Field
                                 name="message"
-                                className={style.message}
-                                placeholder="Enter your message..."
-                                ref={textareaRef}
+                                render={({ input }) => (
+                                    <div>
+                                         <textarea
+                                            className={style.message}
+                                            placeholder="Enter your message..."
+                                            ref={textareaRef}
+                                            {...input}
+                                        />
+                                    </div>
+                                )}
+                                // render={({input}) => {
+                                //     <div>
+                                //         <textarea
+                                //             name="message"
+                                //             className={style.message}
+                                //             placeholder="Enter your message..."
+                                //             ref={textareaRef}
+                                //         />
+                                //     </div>
+                                // }}
                             />
+
                         </div>
                         <div className={style['entry-field']}>
                             <button className={style.btn} type="submit">

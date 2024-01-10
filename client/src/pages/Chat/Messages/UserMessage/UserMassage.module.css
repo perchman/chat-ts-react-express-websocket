@@ -1,0 +1,52 @@
+.back {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.message {
+    padding: 20px 18px;
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    position: relative;
+}
+
+.text {
+    font-size: 14px;
+}
+
+.username_top_left {
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    border-color: transparent;
+    font-size: 14px;
+}
+
+.username_top_right {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    border-color: transparent;
+    font-size: 14px;
+}
+
+.date_bottom_right {
+    position: absolute;
+    bottom: 2px;
+    right: 6px;
+    z-index: 1;
+    font-size: 14px;
+    color: #3f3f3f;
+}
+
+.date_bottom_left {
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    z-index: 1;
+    font-size: 14px;
+    color: #3f3f3f;
+}

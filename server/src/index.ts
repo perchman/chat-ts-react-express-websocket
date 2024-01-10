@@ -24,7 +24,7 @@ async function start(): Promise<void> {
 
         wss.on('connection', async (ws: WebSocket): Promise<void> => {
             console.log('Client connected');
-            // ws.binaryType = 'arraybuffer';
+
             ws.send(JSON.stringify({ type:'history', messages: await messages.getMessages() }));
 
             ws.on('message', async (message: string): Promise<void> => {
@@ -32,6 +32,12 @@ async function start(): Promise<void> {
                 console.log(data);
 
                 await messages.saveMessage(data);
+
+                wss.clients.forEach((client: WebSocket): void => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify(data));
+                    }
+                });
             });
 
             ws.on('close', (): void => {
@@ -50,10 +56,3 @@ async function start(): Promise<void> {
 }
 
 start();
-
-
-// wss.clients.forEach((client: WebSocket): void => {
-//     if (client.readyState === WebSocket.OPEN) {
-//         client.send(JSON.stringify(message));
-//     }
-// });

@@ -45,7 +45,7 @@ export default function LoginForm() {
 
         socket.onopen = () => {
             ServiceLocator.set<WebSocket>('Socket', socket);
-            navigate(`/chat?username=${data.username}&color=${data.color}`);
+            navigate(`/chat?username=${data.username}&color=${data.color.slice(1)}`);
         }
     }
 

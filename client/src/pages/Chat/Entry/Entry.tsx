@@ -11,68 +11,48 @@ interface User {
     color: string
 }
 
-export default function Entry({ user }: {user: User}) {
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-    const onSubmit = (data: {message: string}): void => {
+export default function Entry({ user }: { user: User }) {
+    const onSubmit = async (data: { message: string }, form: any): Promise<void> => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
         console.log(data);
         socket.send(
-            JSON.stringify(
-                {
-                    type: 'user',
-                    date: new Date().getTime(),
-                    user: user,
-                    text: data.message
-                }
-            )
+            JSON.stringify({
+                type: 'user',
+                date: new Date().getTime(),
+                user: user,
+                text: data.message,
+            })
         );
 
-
-        if (textareaRef.current) {
-            textareaRef.current.value = '';
-        }
-    }
+        form.reset();
+    };
 
     return (
         <div className={style.entry}>
             <Form
                 onSubmit={onSubmit}
-                render={({handleSubmit}) => {
-                    return <form id="entry-form" className={style.form} onSubmit={handleSubmit}>
-                        <div>
-                            <Field
-                                name="message"
-                                render={({ input }) => (
-                                    <div>
-                                         <textarea
-                                            className={style.message}
-                                            placeholder="Enter your message..."
-                                            ref={textareaRef}
-                                            {...input}
-                                        />
-                                    </div>
-                                )}
-                                // render={({input}) => {
-                                //     <div>
-                                //         <textarea
-                                //             name="message"
-                                //             className={style.message}
-                                //             placeholder="Enter your message..."
-                                //             ref={textareaRef}
-                                //         />
-                                //     </div>
-                                // }}
-                            />
-
-                        </div>
+                initialValues={{ message: '' }}
+                render={({ handleSubmit }) => (
+                    <form id="entry-form" className={style.form} onSubmit={handleSubmit}>
+                        <Field
+                            name="message"
+                            render={({ input }) => (
+                                <div>
+                                    <textarea
+                                        className={style.message}
+                                        placeholder="Enter your message..."
+                                        {...input}
+                                    />
+                                </div>
+                            )}
+                        />
                         <div className={style['entry-field']}>
                             <button className={style.btn} type="submit">
-                                <BiSolidSend/>
+                                <BiSolidSend />
                             </button>
                         </div>
                     </form>
-                }}
+                )}
             />
         </div>
     );

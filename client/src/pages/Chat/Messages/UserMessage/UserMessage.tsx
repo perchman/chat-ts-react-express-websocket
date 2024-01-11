@@ -39,10 +39,10 @@ export default function UserMessage({ data, key }: { data: UserMassage, key: num
     const minutes: number = date.getMinutes();
 
     return (
-        <div className={style.message} style={{border: `2px solid #${data.user.color}`}} key={key}>
-            <div className={style["username_top_right"]} style={{color: '#' + data.user.color}}>{data.user.username}</div>
+        <div className={style.message} key={key}>
+            <div className={style.username} style={{color: '#' + data.user.color}}>{data.user.username}</div>
             <div className={style.text}>{data.text}</div>
-            <div className={style["date_bottom_left"]}>{`${hours}:${minutes} ${day} ${month} ${year}`}</div>
+            <div className={style.date}>{`${hours}:${minutes} ${day} ${month} ${year}`}</div>
         </div>
     );
 }

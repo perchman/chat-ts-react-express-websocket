@@ -1,0 +1,26 @@
+.messages {
+    overflow: auto;
+}
+
+.messages::-webkit-scrollbar {
+    width: 12px; /* Ширина полосы прокрутки */
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: #1E1E1E; /* Цвет полосы прокрутки */
+    border-radius: 6px; /* Закругление углов */
+}
+
+/* Стили для других браузеров (Firefox, Safari) */
+.messages {
+    scrollbar-width: thin; /* Указываем, что хотим изменить стиль скролла */
+}
+
+.messages::-webkit-scrollbar-track {
+    background-color: inherit; /* Фоновый цвет от родителя */
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: #1E1E1E; /* Цвет полосы прокрутки */
+    border-radius: 6px; /* Закругление углов */
+}

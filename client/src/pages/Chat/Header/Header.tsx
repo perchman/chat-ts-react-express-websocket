@@ -35,7 +35,7 @@ export default function Header({ user }: {user: User}) {
                 <FaArrowCircleLeft/>
                 <span className={style['btn-text']}>Exit</span>
             </Link>
-            <span className={style.username}>Nagibator339</span>
+            <span className={style.username} style={{color: '#' + user.color}}>{user.username}</span>
         </div>
     );
 }

@@ -39,7 +39,7 @@ const saveMessage = async (message: SystemMessage | UserMassage): Promise<void> 
 const getMessages = async () => {
     const db: Db = getDb();
     const collection: Collection = db.collection('Messages');
-    return await collection.find().sort({ date: -1 }).limit(20).toArray();
+    return await collection.find().sort({ date: 1 }).limit(20).toArray();
 }
 
 module.exports = {

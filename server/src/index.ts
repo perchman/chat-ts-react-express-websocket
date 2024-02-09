@@ -7,7 +7,7 @@ import cors from "./middlewares/cors";
 
 const messages = require('./messages');
 
-const PORT = process.env.PORT || 5200;
+const PORT = process.env.PORT || 80;
 const app = express();
 
 app.use(cors);
@@ -15,7 +15,8 @@ app.use(cors);
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const defaultDB: MongoDB = new MongoDB('Default');
+const mongoUrl = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/';
+const defaultDB: MongoDB = new MongoDB('Default', mongoUrl);
 
 async function start(): Promise<void> {
     try {

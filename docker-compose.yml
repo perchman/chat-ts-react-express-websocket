@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+    volumes:
+      - ./build:/app/dist
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - "5200:80"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"

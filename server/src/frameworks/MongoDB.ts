@@ -6,9 +6,9 @@ export default class MongoDB implements MongoDBInterface{
     client: MongoClient;
     db?: Db;
 
-    constructor (name: string) {
+    constructor (name: string, url: string) {
         this.name = name;
-        this.client = new MongoClient('mongodb://127.0.0.1:27017/');
+        this.client = new MongoClient(url);
     }
 
     async connect(): Promise<void> {

@@ -5,7 +5,7 @@
     "strict": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*.ts",

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import LoginForm from "./form/LoginForm";
 
-import style from "./Intro.module.css";
+import style from "./Intro.module.scss";
 
 export default function Intro() {
     return (

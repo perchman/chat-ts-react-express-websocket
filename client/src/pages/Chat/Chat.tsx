@@ -7,7 +7,7 @@ import Header from "./Header/Header";
 import Messages from "./Messages/Messages";
 import Entry from "./Entry/Entry";
 
-import style from "./Chat.module.css";
+import style from "./Chat.module.scss";
 
 interface User {
     username: string,

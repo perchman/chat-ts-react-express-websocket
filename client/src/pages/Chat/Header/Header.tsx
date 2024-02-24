@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { FaArrowCircleLeft } from "react-icons/fa";
 
-import style from "./Header.module.css";
+import style from "./Header.module.scss";
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
 interface User {

@@ -4,7 +4,7 @@ import {Field, Form} from "react-final-form";
 
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
-import style from "./LoginForm.module.css";
+import style from "./LoginForm.module.scss";
 
 const generateRandomColor = () => {
     const letters: string = '0123456789ABCDEF';
@@ -37,7 +37,7 @@ export default function LoginForm() {
     const navigate: NavigateFunction = useNavigate();
 
     const onSubmit = (data: UserData): void => {
-        const socket: WebSocket = new WebSocket("ws://localhost:5200");
+        const socket: WebSocket = new WebSocket("ws://localhost:8080");
 
         socket.onerror = (error) => {
             console.error('WebSocket error:', error);

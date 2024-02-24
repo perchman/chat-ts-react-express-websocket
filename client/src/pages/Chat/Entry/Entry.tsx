@@ -4,7 +4,7 @@ import { BiSolidSend } from "react-icons/bi";
 
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
-import style from "./Entry.module.css";
+import style from "./Entry.module.scss";
 
 interface User {
     username: string,

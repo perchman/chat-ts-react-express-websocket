@@ -7,7 +7,7 @@ import cors from "./middlewares/cors";
 
 const messages = require('./messages');
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(cors);
@@ -30,7 +30,6 @@ async function start(): Promise<void> {
 
             ws.on('message', async (message: string): Promise<void> => {
                 const data = JSON.parse(message);
-                console.log(data);
 
                 await messages.saveMessage(data);
 

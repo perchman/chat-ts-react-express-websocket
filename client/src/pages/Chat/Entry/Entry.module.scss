@@ -3,22 +3,29 @@
   align-items: center;
   justify-content: center;
   background-color: #3f3f3f;
-  border-radius: 0 0 10px 10px;
   position: relative;
 
-  .message {
-    width: 892px;
-    min-height: 40px;
-    font-family: Gilroy;
-    font-size: 16px;
-    font-weight: 300;
-    color: #fff;
-    background-color: transparent;
-    overflow: hidden;
-    resize: none;
-    border: none;
-    outline: none;
+  &-form {
+    width: 100%;
+
+    .message {
+      width: 78%;
+      min-height: 40px;
+      padding-left: 15px;
+      font-family: Gilroy;
+      font-size: 16px;
+      font-weight: 300;
+      color: #fff;
+      background-color: transparent;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      resize: none;
+      border: none;
+      outline: none;
+    }
   }
+
+
 
   &-field {
     overflow: hidden;

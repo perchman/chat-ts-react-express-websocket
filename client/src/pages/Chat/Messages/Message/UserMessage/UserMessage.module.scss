@@ -1,0 +1,20 @@
+.username {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  border-color: transparent;
+  font-size: 14px;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.date {
+  position: absolute;
+  bottom: 2px;
+  right: 6px;
+  z-index: 1;
+  font-size: 14px;
+  color: #3f3f3f;
+}

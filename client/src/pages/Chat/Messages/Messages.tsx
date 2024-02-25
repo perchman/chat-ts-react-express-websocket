@@ -1,10 +1,9 @@
 import React, {useEffect, useLayoutEffect, useState, useRef} from "react";
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
-import UserMessage from "./UserMessage/UserMessage";
-import SystemMessage from "./SystemMessage/SystemMessage";
+import Message from "./Message/Message";
 
-import style from "./Messages.module.css";
+import style from "./Messages.module.scss";
 
 interface User {
     username: string,
@@ -62,9 +61,7 @@ export default function Messages({ user }: {user: User}) {
         <div className={style.messages} ref={scrollRef}>
             {
                 messages.map((message, index) => {
-                    return message.type === 'user' ?
-                        <UserMessage data={message} key={index}/> :
-                        <SystemMessage data={message} key={index}/>
+                    return <Message data={message} key={index} />;
                 })
             }
         </div>

@@ -1,0 +1,14 @@
+.wrapper {
+  margin: 20px 10px;
+
+  .message {
+    display: inline-block;
+    min-width: 125px;
+    max-width: 100%;
+    padding: 20px 18px;
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    position: relative;
+    overflow-wrap: break-word;
+  }
+}

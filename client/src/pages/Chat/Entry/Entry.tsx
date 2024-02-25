@@ -33,7 +33,7 @@ export default function Entry({ user }: { user: User }) {
                 onSubmit={onSubmit}
                 initialValues={{ message: '' }}
                 render={({ handleSubmit }) => (
-                    <form id="entry-form" className={style.form} onSubmit={handleSubmit}>
+                    <form id="entry-form" className={style['entry-form']} onSubmit={handleSubmit}>
                         <Field
                             name="message"
                             render={({ input }) => (

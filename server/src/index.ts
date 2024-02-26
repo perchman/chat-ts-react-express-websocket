@@ -30,6 +30,7 @@ async function start(): Promise<void> {
 
             ws.on('message', async (message: string): Promise<void> => {
                 const data = JSON.parse(message);
+                data.date = new Date().getTime();
 
                 await messages.saveMessage(data);
 

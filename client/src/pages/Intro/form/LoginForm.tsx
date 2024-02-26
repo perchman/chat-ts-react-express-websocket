@@ -1,10 +1,12 @@
-import React, {useState} from "react";
-import {Link, NavigateFunction, useNavigate} from "react-router-dom";
+import React from "react";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 import {Field, Form} from "react-final-form";
 
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
 import style from "./LoginForm.module.scss";
+
+import {UserInterface} from "../../../types";
 
 const generateRandomColor = () => {
     const letters: string = '0123456789ABCDEF';
@@ -17,33 +19,22 @@ const generateRandomColor = () => {
     return color;
 }
 
-interface UserData {
-    username: string,
-    color: string
-}
-
-const initialValues: UserData = {
+const initialValues: UserInterface = {
     username: '',
     color: generateRandomColor()
 }
 
 export default function LoginForm() {
-    const [values, setValues] = useState<UserData>(initialValues);
-
-    const handleChange = ({ target: {value, name} }: React.ChangeEvent<HTMLInputElement>): void => {
-        setValues({...values, [name]: value});
-    }
-
     const navigate: NavigateFunction = useNavigate();
 
-    const onSubmit = (data: UserData): void => {
+    const onSubmit = (data: UserInterface): void => {
         const socket: WebSocket = new WebSocket("ws://localhost:8080");
 
-        socket.onerror = (error) => {
+        socket.onerror = (error): void => {
             console.error('WebSocket error:', error);
         };
 
-        socket.onopen = () => {
+        socket.onopen = (): void => {
             ServiceLocator.set<WebSocket>('Socket', socket);
             navigate(`/chat?username=${data.username}&color=${data.color.slice(1)}`);
         }
@@ -54,7 +45,7 @@ export default function LoginForm() {
             <h2 className={style.title}>Enter username and choose a color</h2>
             <Form
                 onSubmit={onSubmit}
-                initialValues={values}
+                initialValues={initialValues}
                 render={({handleSubmit}) => {
                     return <form id="login-form" className={style.form} onSubmit={handleSubmit}>
                         <div className={style.inputs}>
@@ -64,7 +55,6 @@ export default function LoginForm() {
                                     className={style['username-input']}
                                     component="input"
                                     type="text"
-                                    // onChange={handleChange}
                                     placeholder="Username"
                                 />
                             </div>
@@ -75,7 +65,6 @@ export default function LoginForm() {
                                         <input
                                             className={style['color-input']}
                                             type="color" {...input}
-                                            // onChange={handleChange}
                                         />
                                     )}
                                 />

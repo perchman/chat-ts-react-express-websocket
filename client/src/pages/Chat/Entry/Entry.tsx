@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Field, Form} from "react-final-form";
 import { BiSolidSend } from "react-icons/bi";
 
@@ -6,19 +6,16 @@ import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
 import style from "./Entry.module.scss";
 
-interface User {
-    username: string,
-    color: string
-}
+import {UserInterface} from "../../../types";
 
-export default function Entry({ user }: { user: User }) {
+export default function Entry({ user }: { user: UserInterface }) {
     const onSubmit = async (data: { message: string }, form: any): Promise<void> => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
-        console.log(data);
+
         socket.send(
             JSON.stringify({
                 type: 'user',
-                date: new Date().getTime(),
+                // date: new Date().getTime(),
                 user: user,
                 text: data.message,
             })

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 
 import ServiceLocator from "../../frameworks/ServiceLocator/ServiceLocator";
@@ -9,29 +9,24 @@ import Entry from "./Entry/Entry";
 
 import style from "./Chat.module.scss";
 
-interface User {
-    username: string,
-    color: string
-}
+import {UserInterface} from "../../types";
 
 export default function Chat() {
     const { search } : { search: string } = useLocation();
     const searchParams: URLSearchParams = new URLSearchParams(search);
-    const user: User = {
+    const user: UserInterface = {
         username: searchParams.get('username') || '',
         color: searchParams.get('color') || ''
     };
 
-
-
-    useEffect(() => {
+    useEffect((): void => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
 
         socket.send(
             JSON.stringify(
                 {
                     type: "join",
-                    date: new Date().getTime(),
+                    // date: new Date().getTime(),
                     user: user
                 }
             )

@@ -5,7 +5,7 @@
 
 .form {
   width: 70%;
-  margin: 20px auto 20px;
+  margin: 20px auto;
 
   .inputs {
     display: flex;
@@ -79,6 +79,30 @@
 
       &:hover {
         text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media (max-width: 770px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .form {
+    width: 90%;
+    margin: 16px auto;
+
+    .username-input {
+      padding: 4px 0 4px 8px;
+      font-size: 14px;
+    }
+
+    .btn-item {
+      margin: 14px;
+
+      .btn {
+        font-size: 28px;
       }
     }
   }

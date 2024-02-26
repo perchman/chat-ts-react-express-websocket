@@ -13,3 +13,13 @@
     color: #2EFEF2;
   }
 }
+
+@media (max-width: 770px) {
+  .wrapper {
+    width: 350px;
+
+    .title {
+      font-size: 48px;
+    }
+  }
+}

@@ -2,17 +2,7 @@ import React from "react";
 
 import style from "./UserMessage.module.scss";
 
-interface User {
-    username: string,
-    color: string
-}
-
-interface UserMassage {
-    type: "user",
-    date: number,
-    user: User,
-    text: string
-}
+import {UserMassageInterface} from "../../../../../types";
 
 const months: { [key: number]: string } = {
     0: 'Jan',
@@ -29,7 +19,7 @@ const months: { [key: number]: string } = {
     11: 'Dec',
 };
 
-export default function UserMessage({ data }: { data: UserMassage }) {
+export default function UserMessage({ data }: { data: UserMassageInterface }) {
     const date: Date = new Date(data.date);
 
     const day: number = date.getDate();

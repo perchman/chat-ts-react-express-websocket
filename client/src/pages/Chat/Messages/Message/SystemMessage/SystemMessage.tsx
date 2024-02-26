@@ -1,17 +1,8 @@
 import React from "react";
 
-interface User {
-    username: string,
-    color: string
-}
+import {SystemMessageInterface} from "../../../../../types";
 
-interface SystemMessage {
-    type: "join" | "left",
-    date: number,
-    user: User
-}
-
-export default function SystemMessage({ data}: { data: SystemMessage }) {
+export default function SystemMessage({ data}: { data: SystemMessageInterface }) {
     return (
         <div>
             <span style={{color: '#' + data.user.color}}>{data.user.username}</span>

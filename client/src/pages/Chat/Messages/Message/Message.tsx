@@ -5,27 +5,11 @@ import SystemMessage from "./SystemMessage/SystemMessage";
 
 import style from './Message.module.scss';
 
-interface User {
-    username: string,
-    color: string
-}
+import {SystemMessageInterface, UserMassageInterface} from "../../../../types";
 
-interface SystemMessageInterface {
-    type: "join" | "left",
-    date: number,
-    user: User
-}
-
-interface UserMassageInterface {
-    type: "user",
-    date: number,
-    user: User,
-    text: string
-}
-
-export default function Message({ data, key }: { data: SystemMessageInterface | UserMassageInterface, key: number }) {
+export default function Message({ data}: { data: SystemMessageInterface | UserMassageInterface}) {
     return (
-        <div className={style.wrapper} key={key}>
+        <div className={style.wrapper}>
             <span className={style.message}>
                 {
                     data.type === 'user' ?

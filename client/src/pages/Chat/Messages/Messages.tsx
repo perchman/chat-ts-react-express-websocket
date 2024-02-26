@@ -5,30 +5,9 @@ import Message from "./Message/Message";
 
 import style from "./Messages.module.scss";
 
-interface User {
-    username: string,
-    color: string
-}
+import {UserInterface, SystemMessageInterface, UserMassageInterface} from "../../../types";
 
-interface SystemMessageInterface {
-    type: "join" | "left",
-    date: number,
-    user: User
-}
-
-interface UserMassageInterface {
-    type: "user",
-    date: number,
-    user: User,
-    text: string
-}
-
-interface Messages {
-    messages: SystemMessageInterface[] | UserMassageInterface[],
-    user: User
-}
-
-export default function Messages({ user }: {user: User}) {
+export default function Messages({ user }: {user: UserInterface}) {
     const [
         messages,
         setMessages

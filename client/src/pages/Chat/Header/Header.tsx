@@ -2,16 +2,13 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { FaArrowCircleLeft } from "react-icons/fa";
 
-import style from "./Header.module.scss";
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
-interface User {
-    username: string,
-    color: string
-}
+import style from "./Header.module.scss";
 
-export default function Header({ user }: {user: User}) {
+import {UserInterface} from "../../../types";
 
+export default function Header({ user }: {user: UserInterface}) {
     const handleClick = () => {
         const socket: WebSocket = ServiceLocator.get<WebSocket>('Socket');
 

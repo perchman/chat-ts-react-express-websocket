@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState, useRef} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import ServiceLocator from "../../../frameworks/ServiceLocator/ServiceLocator";
 
 import Message from "./Message/Message";

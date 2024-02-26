@@ -26,7 +26,6 @@ export default function Chat() {
             JSON.stringify(
                 {
                     type: "join",
-                    // date: new Date().getTime(),
                     user: user
                 }
             )

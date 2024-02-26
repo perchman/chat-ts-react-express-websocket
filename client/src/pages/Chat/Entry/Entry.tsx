@@ -15,7 +15,6 @@ export default function Entry({ user }: { user: UserInterface }) {
         socket.send(
             JSON.stringify({
                 type: 'user',
-                // date: new Date().getTime(),
                 user: user,
                 text: data.message,
             })

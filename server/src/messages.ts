@@ -1,4 +1,4 @@
-import {Db, Collection, DeleteResult, WithId, ObjectId} from 'mongodb';
+import {Db, Collection} from 'mongodb';
 import {MongoDBInterface} from "./types";
 import ServiceLocator from "./frameworks/ServiceLocator";
 
@@ -39,7 +39,11 @@ const saveMessage = async (message: SystemMessage | UserMassage): Promise<void> 
 const getMessages = async () => {
     const db: Db = getDb();
     const collection: Collection = db.collection('Messages');
-    return await collection.find().sort({ date: 1 }).limit(20).toArray();
+
+    const totalDocuments: number = await collection.countDocuments();
+    const skipAmount: number = Math.max(0, totalDocuments - 20);
+
+    return await collection.find().sort({ date: 1 }).skip(skipAmount).toArray();
 }
 
 module.exports = {
